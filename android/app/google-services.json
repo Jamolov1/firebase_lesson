@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "339243909383",
+    "project_id": "fir-first-390a3",
+    "storage_bucket": "fir-first-390a3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339243909383:android:ee849a2fca613087eac5a2",
+        "android_client_info": {
+          "package_name": "com.example.firebase_lesson"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtOUpFMR1NUYx4hRm1aZCGUA1m8UGWqhE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
