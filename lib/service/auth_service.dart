@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_lesson/login_page.dart';
+import 'package:firebase_lesson/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {
@@ -8,6 +8,14 @@ class AuthService {
   static bool isLoggedIn() {
     final User? firebaseUser = _auth.currentUser;
     return firebaseUser != null;
+  }
+
+  static Future<User?> signUp(
+      String email, String password, String cfpassword) async {
+    var result = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
+    User? user = result.user;
+    return user;
   }
 
   static Future<User?> loginUser(String email, String password) async {

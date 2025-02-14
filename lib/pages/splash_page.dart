@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:firebase_lesson/home_page.dart';
-import 'package:firebase_lesson/login_page.dart';
+import 'package:firebase_lesson/pages/home_page.dart';
+import 'package:firebase_lesson/pages/login_page.dart';
 import 'package:firebase_lesson/service/auth_service.dart';
 import 'package:flutter/material.dart';
 

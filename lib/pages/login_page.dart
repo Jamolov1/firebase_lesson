@@ -1,3 +1,4 @@
+import 'package:firebase_lesson/pages/sign_up_page.dart';
 import 'package:firebase_lesson/service/auth_service.dart';
 import 'package:flutter/material.dart';
 
@@ -204,7 +205,11 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_){
+                            return SignUpPage();
+                          }));
+                        },
                         child: Text(
                           "Sign Up",
                           style: TextStyle(
