@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_lesson/pages/login_page.dart';
+import 'package:firebase_lesson/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {
@@ -27,7 +27,7 @@ class AuthService {
   static void signOut(BuildContext context) {
     _auth.signOut();
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-      return LoginPage();
+      return HomePage();
     }));
   }
 }

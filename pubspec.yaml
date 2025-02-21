@@ -39,6 +39,7 @@ dependencies:
   firebase_database: ^11.3.2
   img_picker: ^1.0.2
   firebase_storage: ^12.4.2
+  scrollable_list_tab_scroller: ^3.1.0
 
 dev_dependencies:
   flutter_test:

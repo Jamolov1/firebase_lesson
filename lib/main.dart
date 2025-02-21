@@ -8,21 +8,22 @@ void main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
-            apiKey: "AIzaSyCUz-FVGf6xpB-KuNZCy-pjnzvx1CrSEbs",
-            authDomain: "fir-first-390a3.firebaseapp.com",
-            databaseURL: "https://fir-first-390a3-default-rtdb.firebaseio.com",
-            projectId: "fir-first-390a3",
-            storageBucket: "fir-first-390a3.firebasestorage.app",
-            messagingSenderId: "339243909383",
-            appId: "1:339243909383:web:14c615840dd88e94eac5a2"));
+            apiKey: "AIzaSyDLC3iyob3ZgM4UVAfhCyUtY0Mvthw_ZQ8",
+            authDomain: "fir-3-f9ae7.firebaseapp.com",
+            databaseURL: "https://fir-3-f9ae7-default-rtdb.firebaseio.com",
+            projectId: "fir-3-f9ae7",
+            storageBucket: "fir-3-f9ae7.firebasestorage.app",
+            messagingSenderId: "711982332518",
+            appId: "1:711982332518:web:b18297e795ab20b6a60ba7",
+            measurementId: "G-C9YNXL8XWL"));
   } else {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
-            apiKey: "AIzaSyDtOUpFMR1NUYx4hRm1aZCGUA1m8UGWqhE",
-            appId: "1:339243909383:android:ee849a2fca613087eac5a2",
+            apiKey: "AIzaSyA7R_CGcnISudofhPogne2imIbZlFoeEuA",
+            appId: "1:711982332518:android:db77b77609fcbbdda60ba7",
             messagingSenderId: "",
-            projectId: "fir-first-390a3",
-            storageBucket: "fir-first-390a3.firebasestorage.app"));
+            projectId: "fir-3-f9ae7",
+            storageBucket: "fir-3-f9ae7.firebasestorage.app"));
   }
   runApp(const MyApp());
 }

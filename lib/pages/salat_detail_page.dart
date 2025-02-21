@@ -1,19 +1,18 @@
 
-import 'package:firebase_lesson/main_page.dart';
 import 'package:firebase_lesson/model/post_model.dart';
-import 'package:firebase_lesson/pages/home_page.dart';
+import 'package:firebase_lesson/salatlar_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
 
 
-class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key});
+class SalatDetailPage extends StatefulWidget {
+  const SalatDetailPage({super.key});
 
   @override
-  State<DetailsPage> createState() => _DetailsPageState();
+  State<SalatDetailPage> createState() => _SalatDetailPageState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _SalatDetailPageState extends State<SalatDetailPage> {
   bool isLoading = false;
   final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _lastnamecontroller = TextEditingController();
@@ -54,14 +53,14 @@ class _DetailsPageState extends State<DetailsPage> {
     Post post = Post(
         firstName: name, lastName: lastname, about: about, image_url: imgUrl);
 
-    RTDBService.addTaom(post).then((value) => {
-          setState(() {
-            isLoading = false;
-          }),
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-            return HomePage();
-          })),
-        });
+    RTDBService.addSalat(post).then((value) => {
+      setState(() {
+        isLoading = false;
+      }),
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
+        return SalatlarPage();
+      })),
+    });
   }
 
   @override
@@ -154,29 +153,29 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
           isLoading
               ? SizedBox(
-                  height: 60,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
+            height: 60,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
               : InkWell(
-                  onTap: () {
-                    _createPost();
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(12),
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                      child: Text(
-                        "Save",
-                        style: TextStyle(color: Colors.white, fontSize: 22),
-                      ),
-                    ),
-                  ),
+            onTap: () {
+              _createPost();
+            },
+            child: Container(
+              margin: EdgeInsets.all(12),
+              height: 60,
+              decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                child: Text(
+                  "Save",
+                  style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
+              ),
+            ),
+          ),
         ],
       ),
     );
