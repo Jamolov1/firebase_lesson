@@ -1,19 +1,20 @@
 
 import 'package:firebase_lesson/model/post_model.dart';
 import 'package:firebase_lesson/pages/home_page.dart';
+import 'package:firebase_lesson/pages/shashlik_page.dart';
 import 'package:firebase_lesson/salatlar_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
 
 
-class SalatDetailPage extends StatefulWidget {
-  const SalatDetailPage({super.key});
+class ShashlikDetailPage extends StatefulWidget {
+  const ShashlikDetailPage({super.key});
 
   @override
-  State<SalatDetailPage> createState() => _SalatDetailPageState();
+  State<ShashlikDetailPage> createState() => _ShashlikDetailPageState();
 }
 
-class _SalatDetailPageState extends State<SalatDetailPage> {
+class _ShashlikDetailPageState extends State<ShashlikDetailPage> {
   bool isLoading = false;
   final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _lastnamecontroller = TextEditingController();
@@ -54,7 +55,7 @@ class _SalatDetailPageState extends State<SalatDetailPage> {
     Post post = Post(
         firstName: name, lastName: lastname, about: about, image_url: imgUrl);
 
-    RTDBService.addSalat(post).then((value) => {
+    RTDBService.addShashlik(post).then((value) => {
       setState(() {
         isLoading = false;
       }),

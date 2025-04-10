@@ -1,22 +1,27 @@
+import 'package:firebase_lesson/pages/details_page.dart';
 import 'package:firebase_lesson/pages/food_detail_page.dart';
-import 'package:firebase_lesson/pages/ichimlik_detail_page.dart';
+import 'package:firebase_lesson/pages/salat_detail_page.dart';
+import 'package:firebase_lesson/pages/shashlik_detail_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'model/post_model.dart';
+import '../model/post_model.dart';
 
-class IchimliklarPage extends StatefulWidget {
-  const IchimliklarPage({super.key});
+
+
+class ShashlikPage extends StatefulWidget {
+  const ShashlikPage({super.key});
 
   @override
-  State<IchimliklarPage> createState() => _IchimliklarPageState();
+  State<ShashlikPage> createState() => _ShashlikPageState();
 }
 
-class _IchimliklarPageState extends State<IchimliklarPage> {
+class _ShashlikPageState extends State<ShashlikPage> {
   List<Post> items = [];
+
   _apiPostList() async {
-    var list = await RTDBService.getIchimlik();
+    var list = await RTDBService.getShashlik();
     setState(() {
       items = list;
     });
@@ -29,8 +34,8 @@ class _IchimliklarPageState extends State<IchimliklarPage> {
     _apiPostList();
   }
 
-  void deleteIchimlik(String id) {
-    RTDBService.deleteIchimliklar(id).then((value) => {_apiPostList()});
+  void deleteShashlik(String id) {
+    RTDBService.deleteSalatlar(id).then((value) => {_apiPostList()});
   }
 
   void dialog() {
@@ -118,12 +123,13 @@ class _IchimliklarPageState extends State<IchimliklarPage> {
                   Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                  items[index].image_url ?? "",
-                                ),
-                                fit: BoxFit.cover)),
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                items[index].image_url ?? "",
+                              ),
+                              fit: BoxFit.cover),
+                        ),
                       )),
                   Expanded(
                       child: Container(
@@ -158,7 +164,7 @@ class _IchimliklarPageState extends State<IchimliklarPage> {
                                         ? SizedBox()
                                         : IconButton(
                                         onPressed: () {
-                                          deleteIchimlik(items[index].id ?? "");
+                                          deleteShashlik(items[index].id ?? "");
                                         },
                                         icon: Icon(
                                           Icons.delete,
@@ -218,7 +224,7 @@ class _IchimliklarPageState extends State<IchimliklarPage> {
           : FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return IchimlikDetailPage();
+            return ShashlikDetailPage();
           }));
         },
         child: Icon(Icons.add),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_lesson/pages/splash_page.dart';
 import 'package:flutter/foundation.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
@@ -25,7 +27,18 @@ void main() async {
             projectId: "fir-3-f9ae7",
             storageBucket: "fir-3-f9ae7.firebasestorage.app"));
   }
-  runApp(const MyApp());
+  runApp(EasyLocalization(
+    supportedLocales: [
+      Locale('en','US'),
+      Locale('ru','RU'),
+      Locale('uz','UZ'),
+    ],
+    path: 'assets/translations',
+    fallbackLocale: Locale('ru', 'RU'),
+    startLocale: Locale('ru','RU'),
+    saveLocale: true,
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -34,8 +47,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Restoran Menu',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,

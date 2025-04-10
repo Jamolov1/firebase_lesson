@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({super.key,});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -31,6 +31,67 @@ class _MainPageState extends State<MainPage> {
 
   void deleteTaom(String id) {
     RTDBService.deleteTaomlar(id).then((value) => {_apiPostList()});
+  }
+
+  void dialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Text(
+                      "Buyurtma uchun qo'ng'iroq qiling",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Text(
+                    "Telefon: 1080",
+                    style: TextStyle(
+                        color: Colors.orange,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 12,),
+                  Center(
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        height: 40,
+                        width: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(12)
+                        ),
+                        child: Center(
+                          child: Text(
+                            "OK",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override
@@ -106,33 +167,38 @@ class _MainPageState extends State<MainPage> {
                                         ))
                               ],
                             ),
-                            Container(
-                              margin: EdgeInsets.all(6),
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.cyanAccent.withOpacity(0.1),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  width: 2,
-                                  color: Colors.cyan,
+                            InkWell(
+                              onTap: () {
+                                dialog();
+                              },
+                              child: Container(
+                                margin: EdgeInsets.all(6),
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.cyanAccent.withOpacity(0.1),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    width: 2,
+                                    color: Colors.cyan,
+                                  ),
                                 ),
-                              ),
-                              child: Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.add,
-                                      color: Colors.cyan,
-                                    ),
-                                    Text(
-                                      "Zakaz Berish",
-                                      style: TextStyle(
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.add,
                                         color: Colors.cyan,
-                                        fontWeight: FontWeight.bold,
                                       ),
-                                    ),
-                                  ],
+                                      Text(
+                                        "Zakaz Berish",
+                                        style: TextStyle(
+                                          color: Colors.cyan,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             )
@@ -151,13 +217,13 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: kIsWeb
           ? SizedBox()
           : FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return DetailsPage();
-          }));
-        },
-        child: Icon(Icons.add),
-      ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return DetailsPage();
+                }));
+              },
+              child: Icon(Icons.add),
+            ),
     );
   }
 }
