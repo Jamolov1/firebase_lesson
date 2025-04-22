@@ -1,30 +1,30 @@
 import 'package:firebase_lesson/pages/details_page.dart';
-import 'package:firebase_lesson/pages/food_detail_page.dart';
-import 'package:firebase_lesson/pages/salat_detail_page.dart';
-import 'package:firebase_lesson/pages/shashlik_detail_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../model/post_model.dart';
+import '../../model/post_model.dart';
+import 'details/pishiriq_detail_page.dart';
 
 
-
-class ShashlikPage extends StatefulWidget {
-  const ShashlikPage({super.key});
+class PishiriqPage extends StatefulWidget {
+  const PishiriqPage({super.key});
 
   @override
-  State<ShashlikPage> createState() => _ShashlikPageState();
+  State<PishiriqPage> createState() => _PishiriqPageState();
 }
 
-class _ShashlikPageState extends State<ShashlikPage> {
+class _PishiriqPageState extends State<PishiriqPage> {
   List<Post> items = [];
+  bool isLoading = false;
 
   _apiPostList() async {
-    var list = await RTDBService.getShashlik();
+    isLoading = true;
+    var list = await RTDBService.getPishiriq();
     setState(() {
       items = list;
     });
+    isLoading = false;
   }
 
   @override
@@ -34,8 +34,8 @@ class _ShashlikPageState extends State<ShashlikPage> {
     _apiPostList();
   }
 
-  void deleteShashlik(String id) {
-    RTDBService.deleteSalatlar(id).then((value) => {_apiPostList()});
+  void deleteSalat(String id) {
+    RTDBService.deletePishiriq(id).then((value) => {_apiPostList()});
   }
 
   void dialog() {
@@ -98,53 +98,60 @@ class _ShashlikPageState extends State<ShashlikPage> {
           );
         });
   }
+
+  void deletePishiriq(String id) {
+    RTDBService.deletePishiriq(id).then((value) => {_apiPostList()});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
+      body: isLoading?Center(child: CircularProgressIndicator(),):ListView.builder(
         itemBuilder: (BuildContext ctx, int index) {
           return InkWell(
             onTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return FoodDetailPage(
-                  name: items[index].firstName!,
+                return DetailsPage(
+                  name: items[index].name!,
                   image: items[index].image_url!,
-                  price: items[index].lastName!,
+                  recipe: items[index].recipe!,
                   about: items[index].about!,
                 );
               }));
             },
             child: Container(
               margin: EdgeInsets.all(8),
-              height: MediaQuery.of(context).size.height / 5,
+              height: MediaQuery.of(context).size.height / 7,
+              width: MediaQuery.of(context).size.width,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
+                      flex: 1,
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                items[index].image_url ?? "",
-                              ),
-                              fit: BoxFit.cover),
-                        ),
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                  items[index].image_url ?? "",
+                                ),
+                                fit: BoxFit.cover)),
                       )),
                   Expanded(
+                      flex: 2,
                       child: Container(
                         margin: EdgeInsets.all(6),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              items[index].firstName!,
+                              items[index].name!,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,61 +159,31 @@ class _ShashlikPageState extends State<ShashlikPage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      "${items[index].lastName!} so'm",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
+                                    Expanded(
+                                      child: Text(
+                                        "${items[index].recipe!} so'm",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
                                     kIsWeb
-                                        ? SizedBox()
-                                        : IconButton(
+                                        ? IconButton(
                                         onPressed: () {
-                                          deleteShashlik(items[index].id ?? "");
+                                          deletePishiriq(items[index].id ?? "");
                                         },
                                         icon: Icon(
                                           Icons.delete,
                                           color: Colors.red,
                                         ))
+                                        : SizedBox(),
                                   ],
                                 ),
-                                InkWell(
-                                  onTap: (){
-                                    dialog();
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.all(6),
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Colors.cyanAccent.withOpacity(0.1),
-                                      borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(
-                                        width: 2,
-                                        color: Colors.cyan,
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.add,
-                                            color: Colors.cyan,
-                                          ),
-                                          Text(
-                                            "Zakaz Berish",
-                                            style: TextStyle(
-                                              color: Colors.cyan,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                )
+
                               ],
                             )
                           ],
@@ -220,15 +197,15 @@ class _ShashlikPageState extends State<ShashlikPage> {
         itemCount: items.length,
       ),
       floatingActionButton: kIsWeb
-          ? SizedBox()
-          : FloatingActionButton(
+          ? FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return ShashlikDetailPage();
+            return PishiriqDetailPage();
           }));
         },
         child: Icon(Icons.add),
-      ),
+      )
+          : SizedBox()
     );
   }
 }

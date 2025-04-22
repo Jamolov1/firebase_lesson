@@ -1,19 +1,19 @@
 class Post {
-  String? firstName;
-  String? lastName;
+  String? name;
+  String? recipe;
   String? about;
   String? image_url;
   String? id;
 
-  Post({this.firstName, this.lastName, this.about, this.image_url,this.id});
+  Post({this.name, this.recipe, this.about, this.image_url,this.id});
 
   Post.fromJson(Map<String, dynamic> json)
-      : firstName = json["firstName"],
-        lastName = json["lastName"],
+      : name = json["name"],
+        recipe = json["recipe"],
         image_url = json["image_url"],
         about = json["about"],
         id = json["id"];
 
   Map<String, dynamic> toJson() =>
-      {"firstName": firstName, "lastName": lastName, "about": about,"image_url": image_url,"id":id};
+      {"name": name, "recipe": recipe, "about": about,"image_url": image_url,"id":id};
 }

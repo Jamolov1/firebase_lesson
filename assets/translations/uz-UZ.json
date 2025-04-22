@@ -1,8 +1,11 @@
 {
-  "Restoran Menu": "Restoran Menu",
-  "Taomlar": "Taomlar",
-  "Salat": "Salat",
-  "Ichimliklar": "Ichimliklar",
-  "Shashlik": "Shashlik",
-  "Tilni tanlash": "Tilni tanlash"
+  "Taomlar Retsepti": "Taomlar Retsepti",
+  "Categories": "Kategoriyalar",
+  "Tortlar": "Tortlar",
+  "Pishiriqlar": "Pishiriqlar",
+  "Shirinliklar": "Shirinliklar",
+  "Kaboblar": "Kaboblar",
+  "Tilni tanlash": "Tilni tanlash",
+  "Yopish": "Yopish",
+  "You are not connected to the internet": "Siz internetga ulanmagansiz"
 }

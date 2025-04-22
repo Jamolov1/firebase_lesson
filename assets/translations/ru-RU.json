@@ -1,9 +1,11 @@
 {
-  "Restoran Menu": "Меню ресторана",
-  "Taomlar": "Еда",
-  "Salat": "Салат",
-  "Ichimliklar": "Напитки",
-  "Shashlik": "Шашлык",
-  "Tilni tanlash": "Выберите язык"
-
+  "Taomlar Retsepti": "Рецепт еды",
+  "Categories": "Категории ",
+  "Tortlar": "Торты",
+  "Pishiriqlar": "Десерты",
+  "Shirinliklar": "Сладости",
+  "Kaboblar": "Kebab",
+  "Tilni tanlash": "Выберите язык",
+  "Yopish": "закрывать",
+  "You are not connected to the internet": "Вы не подключены к Интернету"
 }

@@ -1,20 +1,19 @@
 
+import 'package:firebase_lesson/pages/category_page/tort_page.dart';
 import 'package:firebase_lesson/model/post_model.dart';
 import 'package:firebase_lesson/pages/home_page.dart';
-import 'package:firebase_lesson/pages/shashlik_page.dart';
-import 'package:firebase_lesson/salatlar_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
 
 
-class ShashlikDetailPage extends StatefulWidget {
-  const ShashlikDetailPage({super.key});
+class TortDetailPage extends StatefulWidget {
+  const TortDetailPage({super.key});
 
   @override
-  State<ShashlikDetailPage> createState() => _ShashlikDetailPageState();
+  State<TortDetailPage> createState() => _TortDetailPageState();
 }
 
-class _ShashlikDetailPageState extends State<ShashlikDetailPage> {
+class _TortDetailPageState extends State<TortDetailPage> {
   bool isLoading = false;
   final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _lastnamecontroller = TextEditingController();
@@ -53,16 +52,16 @@ class _ShashlikDetailPageState extends State<ShashlikDetailPage> {
       isLoading = true;
     });
     Post post = Post(
-        firstName: name, lastName: lastname, about: about, image_url: imgUrl);
+        name: name, recipe: lastname, about: about, image_url: imgUrl);
 
-    RTDBService.addShashlik(post).then((value) => {
-      setState(() {
-        isLoading = false;
-      }),
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-        return HomePage();
-      })),
-    });
+    RTDBService.addTort(post).then((value) => {
+          setState(() {
+            isLoading = false;
+          }),
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
+            return TortPage();
+          })),
+        });
   }
 
   @override
@@ -132,7 +131,7 @@ class _ShashlikDetailPageState extends State<ShashlikDetailPage> {
               child: TextField(
                 controller: _lastnamecontroller,
                 decoration: InputDecoration(
-                  hintText: "Price",
+                  hintText: "Recipe",
                   border: InputBorder.none,
                 ),
               ),
@@ -147,7 +146,7 @@ class _ShashlikDetailPageState extends State<ShashlikDetailPage> {
               child: TextField(
                 controller: _aboutcontroller,
                 decoration: InputDecoration(
-                  hintText: "About",
+                  hintText: "Video url",
                   border: InputBorder.none,
                 ),
               ),
@@ -155,29 +154,29 @@ class _ShashlikDetailPageState extends State<ShashlikDetailPage> {
           ),
           isLoading
               ? SizedBox(
-            height: 60,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
               : InkWell(
-            onTap: () {
-              _createPost();
-            },
-            child: Container(
-              margin: EdgeInsets.all(12),
-              height: 60,
-              decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Center(
-                child: Text(
-                  "Save",
-                  style: TextStyle(color: Colors.white, fontSize: 22),
+                  onTap: () {
+                    _createPost();
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(12),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text(
+                        "Save",
+                        style: TextStyle(color: Colors.white, fontSize: 22),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
         ],
       ),
     );

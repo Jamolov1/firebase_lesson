@@ -1,19 +1,19 @@
 
 import 'package:firebase_lesson/model/post_model.dart';
+import 'package:firebase_lesson/pages/category_page/kaboblar_page.dart';
 import 'package:firebase_lesson/pages/home_page.dart';
-import 'package:firebase_lesson/salatlar_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
 
 
-class SalatDetailPage extends StatefulWidget {
-  const SalatDetailPage({super.key});
+class KabobDetailPage extends StatefulWidget {
+  const KabobDetailPage({super.key});
 
   @override
-  State<SalatDetailPage> createState() => _SalatDetailPageState();
+  State<KabobDetailPage> createState() => _KabobDetailPageState();
 }
 
-class _SalatDetailPageState extends State<SalatDetailPage> {
+class _KabobDetailPageState extends State<KabobDetailPage> {
   bool isLoading = false;
   final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _lastnamecontroller = TextEditingController();
@@ -52,14 +52,14 @@ class _SalatDetailPageState extends State<SalatDetailPage> {
       isLoading = true;
     });
     Post post = Post(
-        firstName: name, lastName: lastname, about: about, image_url: imgUrl);
+        name: name, recipe: lastname, about: about, image_url: imgUrl);
 
-    RTDBService.addSalat(post).then((value) => {
+    RTDBService.addKabob(post).then((value) => {
       setState(() {
         isLoading = false;
       }),
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-        return HomePage();
+        return KabobPage();
       })),
     });
   }
@@ -85,7 +85,7 @@ class _SalatDetailPageState extends State<SalatDetailPage> {
       body: Column(
         children: [
           Text(
-            "Create Post",
+            "Create Post  ",
             style: TextStyle(
               color: Colors.orange,
               fontSize: 35,
@@ -131,7 +131,7 @@ class _SalatDetailPageState extends State<SalatDetailPage> {
               child: TextField(
                 controller: _lastnamecontroller,
                 decoration: InputDecoration(
-                  hintText: "Price",
+                  hintText: "Recipe",
                   border: InputBorder.none,
                 ),
               ),
@@ -146,7 +146,7 @@ class _SalatDetailPageState extends State<SalatDetailPage> {
               child: TextField(
                 controller: _aboutcontroller,
                 decoration: InputDecoration(
-                  hintText: "About",
+                  hintText: "Video Url",
                   border: InputBorder.none,
                 ),
               ),

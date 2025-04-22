@@ -1,12 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_lesson/pages/home_page.dart';
 import 'package:firebase_lesson/pages/splash_page.dart';
+import 'package:firebase_lesson/service/pref_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  bool showIntro = await PrefService.loadIntro() ?? false;
   await EasyLocalization.ensureInitialized();
+
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
@@ -29,20 +33,24 @@ void main() async {
   }
   runApp(EasyLocalization(
     supportedLocales: [
-      Locale('en','US'),
-      Locale('ru','RU'),
-      Locale('uz','UZ'),
+      Locale('en', 'US'),
+      Locale('ru', 'RU'),
+      Locale('uz', 'UZ'),
     ],
     path: 'assets/translations',
-    fallbackLocale: Locale('ru', 'RU'),
-    startLocale: Locale('ru','RU'),
+    fallbackLocale: Locale('uz', 'UZ'),
+    startLocale: Locale('uz', 'UZ'),
     saveLocale: true,
-    child: MyApp(),
+    child: MyApp(
+      showIntro: showIntro,
+    ),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool showIntro;
+
+  const MyApp({super.key, required this.showIntro});
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +59,13 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       debugShowCheckedModeBanner: false,
-      title: 'Restoran Menu',
+      title: 'Taomlar Retsepti',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SplashPage(),
+      themeMode: ThemeMode.system,
+      home: showIntro ? HomePage() : SplashPage(),
     );
   }
 }

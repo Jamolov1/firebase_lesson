@@ -1,183 +1,168 @@
-
-import 'package:firebase_lesson/main_page.dart';
-import 'package:firebase_lesson/model/post_model.dart';
-import 'package:firebase_lesson/pages/home_page.dart';
-import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
 
+import '../youtubeview_page.dart';
 
 class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key});
+  String name;
+  String image;
+  String recipe;
+  String about;
+
+  DetailsPage(
+      {super.key,
+      required this.name,
+      required this.image,
+      required this.recipe,
+      required this.about});
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  bool isLoading = false;
-  final TextEditingController _namecontroller = TextEditingController();
-  final TextEditingController _lastnamecontroller = TextEditingController();
-  final TextEditingController _aboutcontroller = TextEditingController();
-  final TextEditingController _imgurlcontroller = TextEditingController();
-
-  // File? _image;
-  // final picker = ImagePicker();
-  //
-  // Future _getImage() async {
-  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-  //   setState(() {
-  //     if (pickedFile != null) {
-  //       _image = File(pickedFile.path);
-  //     } else {
-  //       print("No selected Image");
-  //     }
-  //   });
-  // }
-
-  _createPost() {
-    String name = _namecontroller.text.trim().toString();
-    String lastname = _lastnamecontroller.text.trim().toString();
-    String about = _aboutcontroller.text.trim().toString();
-    String imgUrl = _imgurlcontroller.text.trim().toString();
-
-    if (name.isEmpty || lastname.isEmpty || about.isEmpty || imgUrl.isEmpty) return;
-
-    _apiCreatePost(name, lastname, about,imgUrl);
-  }
-
-
-
-  _apiCreatePost(String name, String lastname, String about, String imgUrl) {
-    setState(() {
-      isLoading = true;
-    });
-    Post post = Post(
-        firstName: name, lastName: lastname, about: about, image_url: imgUrl);
-
-    RTDBService.addTaom(post).then((value) => {
-          setState(() {
-            isLoading = false;
-          }),
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-            return HomePage();
-          })),
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
-        title: Text(
-          "Details Page",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      body: Column(
-        children: [
-          Text(
-            "Create Post",
-            style: TextStyle(
-              color: Colors.orange,
-              fontSize: 35,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            margin: EdgeInsets.all(12),
-            height: 55,
-            color: Colors.grey.shade300,
-            child: Center(
-              child: TextField(
-                controller: _imgurlcontroller,
-                decoration: InputDecoration(
-                  hintText: "Img Url",
-                  border: InputBorder.none,
-                ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            SliverAppBar(
+              expandedHeight: MediaQuery.of(context).size.height * 0.35,
+              pinned: true,
+              floating: true,
+              bottom: TabBar(
+                indicatorColor: Color(0xFFF1C623),
+                indicatorWeight: 3,
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelStyle: TextStyle(fontSize: 20, color:Color(0xFFF1C623),),
+                unselectedLabelColor: Colors.grey,
+                tabs: [Tab(text: "Masalliqlar"), Tab(text: "Tayyorlash")],
               ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            margin: EdgeInsets.all(12),
-            height: 55,
-            color: Colors.grey.shade300,
-            child: Center(
-              child: TextField(
-                controller: _namecontroller,
-                decoration: InputDecoration(
-                  hintText: "Name",
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            margin: EdgeInsets.all(12),
-            height: 55,
-            color: Colors.grey.shade300,
-            child: Center(
-              child: TextField(
-                controller: _lastnamecontroller,
-                decoration: InputDecoration(
-                  hintText: "Price",
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            margin: EdgeInsets.all(12),
-            height: 55,
-            color: Colors.grey.shade300,
-            child: Center(
-              child: TextField(
-                controller: _aboutcontroller,
-                decoration: InputDecoration(
-                  hintText: "About",
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
-          ),
-          isLoading
-              ? SizedBox(
-                  height: 60,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : InkWell(
-                  onTap: () {
-                    _createPost();
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(12),
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                      child: Text(
-                        "Save",
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+              flexibleSpace: FlexibleSpaceBar(
+                background: Stack(
+
+                  children: [
+
+                    Image.network(widget.image, fit: BoxFit.cover,height: double.infinity,width: double.infinity,),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.8),
+                            Colors.black.withOpacity(0.5),
+                            Colors.transparent,
+                          ],
+                        ),
                       ),
                     ),
-                  ),
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(10))
+                      ),
+                    ),
+                  ],
                 ),
-        ],
+              ),
+            ),
+          ],
+          body: TabBarView(
+            children: [
+              ListView(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Kerakli Masalliqlar:",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          widget.recipe,
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              ListView(
+                children: [
+                  item_video(
+                      image: widget.image,
+                      title: widget.name,
+                      url: widget.about),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget item_video({image, title, url}) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) {
+              return YoutubeviewPage(
+                url: url,
+              );
+            },
+          ),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.all(12),
+        height: 120,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  image,
+                  fit: BoxFit.cover,
+                  height: 120,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                padding: EdgeInsets.all(12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.black, fontSize: 26),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
