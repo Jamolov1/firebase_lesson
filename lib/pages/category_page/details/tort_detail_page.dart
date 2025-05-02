@@ -1,9 +1,10 @@
 
-import 'package:firebase_lesson/pages/category_page/tort_page.dart';
 import 'package:firebase_lesson/model/post_model.dart';
-import 'package:firebase_lesson/pages/home_page.dart';
+import 'package:firebase_lesson/pages/main_page/home_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
+
+import '../category/tort_page.dart';
 
 
 class TortDetailPage extends StatefulWidget {
@@ -59,7 +60,7 @@ class _TortDetailPageState extends State<TortDetailPage> {
             isLoading = false;
           }),
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-            return TortPage();
+            return HomePage();
           })),
         });
   }
@@ -78,7 +79,7 @@ class _TortDetailPageState extends State<TortDetailPage> {
               color: Colors.white,
             )),
         title: Text(
-          "Details Page",
+          "Tort Add Page",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -96,7 +97,10 @@ class _TortDetailPageState extends State<TortDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: TextField(
                 controller: _imgurlcontroller,
@@ -111,7 +115,10 @@ class _TortDetailPageState extends State<TortDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: TextField(
                 controller: _namecontroller,
@@ -126,7 +133,10 @@ class _TortDetailPageState extends State<TortDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: TextField(
                 controller: _lastnamecontroller,
@@ -141,7 +151,10 @@ class _TortDetailPageState extends State<TortDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: TextField(
                 controller: _aboutcontroller,

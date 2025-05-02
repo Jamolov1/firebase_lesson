@@ -1,6 +1,6 @@
 
 import 'package:firebase_lesson/model/post_model.dart';
-import 'package:firebase_lesson/pages/home_page.dart';
+import 'package:firebase_lesson/pages/main_page/home_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
 

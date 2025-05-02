@@ -1,9 +1,10 @@
 import 'package:firebase_lesson/pages/login_page/sign_in_page.dart';
+import 'package:firebase_lesson/service/shared_pref.dart';
 import 'package:flutter/material.dart';
 
 
 import '../../service/auth_service.dart';
-import '../home_page.dart';
+import '../main_page/home_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -37,6 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
           setState(() {
             isLoading = false;
           });
+          SharedPref.storeName(email);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

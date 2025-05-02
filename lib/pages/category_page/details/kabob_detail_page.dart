@@ -1,10 +1,8 @@
-
 import 'package:firebase_lesson/model/post_model.dart';
-import 'package:firebase_lesson/pages/category_page/kaboblar_page.dart';
-import 'package:firebase_lesson/pages/home_page.dart';
+import 'package:firebase_lesson/pages/category_page/category/kaboblar_page.dart';
+import 'package:firebase_lesson/pages/main_page/home_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
-
 
 class KabobDetailPage extends StatefulWidget {
   const KabobDetailPage({super.key});
@@ -40,28 +38,27 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
     String about = _aboutcontroller.text.trim().toString();
     String imgUrl = _imgurlcontroller.text.trim().toString();
 
-    if (name.isEmpty || lastname.isEmpty || about.isEmpty || imgUrl.isEmpty) return;
+    if (name.isEmpty || lastname.isEmpty || about.isEmpty || imgUrl.isEmpty)
+      return;
 
-    _apiCreatePost(name, lastname, about,imgUrl);
+    _apiCreatePost(name, lastname, about, imgUrl);
   }
-
-
 
   _apiCreatePost(String name, String lastname, String about, String imgUrl) {
     setState(() {
       isLoading = true;
     });
-    Post post = Post(
-        name: name, recipe: lastname, about: about, image_url: imgUrl);
+    Post post =
+        Post(name: name, recipe: lastname, about: about, image_url: imgUrl);
 
     RTDBService.addKabob(post).then((value) => {
-      setState(() {
-        isLoading = false;
-      }),
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-        return KabobPage();
-      })),
-    });
+          setState(() {
+            isLoading = false;
+          }),
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
+            return HomePage();
+          })),
+        });
   }
 
   @override
@@ -78,14 +75,14 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
               color: Colors.white,
             )),
         title: Text(
-          "Details Page",
+          "Kabob Add Page",
           style: TextStyle(color: Colors.white),
         ),
       ),
       body: Column(
         children: [
           Text(
-            "Create Post  ",
+            "Create Post",
             style: TextStyle(
               color: Colors.orange,
               fontSize: 35,
@@ -96,7 +93,10 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Center(
               child: TextField(
                 controller: _imgurlcontroller,
@@ -111,7 +111,10 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Center(
               child: TextField(
                 controller: _namecontroller,
@@ -126,7 +129,10 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Center(
               child: TextField(
                 controller: _lastnamecontroller,
@@ -141,7 +147,10 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Center(
               child: TextField(
                 controller: _aboutcontroller,
@@ -154,29 +163,29 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
           ),
           isLoading
               ? SizedBox(
-            height: 60,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
+                  height: 60,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
               : InkWell(
-            onTap: () {
-              _createPost();
-            },
-            child: Container(
-              margin: EdgeInsets.all(12),
-              height: 60,
-              decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Center(
-                child: Text(
-                  "Save",
-                  style: TextStyle(color: Colors.white, fontSize: 22),
+                  onTap: () {
+                    _createPost();
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(12),
+                    height: 60,
+                    decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text(
+                        "Save",
+                        style: TextStyle(color: Colors.white, fontSize: 22),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
         ],
       ),
     );

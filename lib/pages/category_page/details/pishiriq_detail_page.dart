@@ -1,6 +1,6 @@
 
 import 'package:firebase_lesson/model/post_model.dart';
-import 'package:firebase_lesson/pages/category_page/pishiriq_page.dart';
+import 'package:firebase_lesson/pages/main_page/home_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
 
@@ -58,7 +58,7 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
         isLoading = false;
       }),
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-        return PishiriqPage();
+        return HomePage();
       })),
     });
   }
@@ -77,7 +77,7 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
               color: Colors.white,
             )),
         title: Text(
-          "Details Page",
+          "Pishiriq Add Page",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -95,7 +95,10 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: TextField(
                 controller: _imgurlcontroller,
@@ -110,7 +113,10 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: TextField(
                 controller: _namecontroller,
@@ -125,7 +131,10 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: TextField(
                 controller: _lastnamecontroller,
@@ -140,7 +149,10 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
             padding: EdgeInsets.symmetric(horizontal: 12),
             margin: EdgeInsets.all(12),
             height: 55,
-            color: Colors.grey.shade300,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
+            ),
             child: Center(
               child: TextField(
                 controller: _aboutcontroller,
