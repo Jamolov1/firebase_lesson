@@ -104,6 +104,9 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
                 controller: _imgurlcontroller,
                 decoration: InputDecoration(
                   hintText: "Img Url",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -122,6 +125,9 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
                 controller: _namecontroller,
                 decoration: InputDecoration(
                   hintText: "Name",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -140,6 +146,9 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
                 controller: _lastnamecontroller,
                 decoration: InputDecoration(
                   hintText: "Recipe",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -158,6 +167,9 @@ class _PishiriqDetailPageState extends State<PishiriqDetailPage> {
                 controller: _aboutcontroller,
                 decoration: InputDecoration(
                   hintText: "Video Url",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),

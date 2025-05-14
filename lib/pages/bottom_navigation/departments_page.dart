@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_lesson/pages/bottom_navigation/departments_detail_page/kabob_departments_page.dart';
+import 'package:firebase_lesson/pages/bottom_navigation/departments_detail_page/non_departments_page.dart';
 import 'package:firebase_lesson/pages/bottom_navigation/departments_detail_page/pishiriq_departments_page.dart';
 import 'package:firebase_lesson/pages/bottom_navigation/departments_detail_page/shirinlik_departments_page.dart';
 import 'package:firebase_lesson/pages/bottom_navigation/departments_detail_page/tort_departments_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/theme.provider.dart';
 
@@ -45,7 +46,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
           : AppBar(
         backgroundColor: isDarkMode ? Colors.grey.shade900 : Colors.white,
               title: Text(
-                "Bo'limlar",
+                "Bo'limlar".tr(),
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -62,7 +63,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                     }));
                   },
                   image: "assets/tort.jpg",
-                  name: "Tortlar",
+                  name: "Tortlar".tr(),
                 ),
                 Divider(),
                 departments_item(
@@ -72,7 +73,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                     }));
                   },
                   image: "assets/pishiriq.jpg",
-                  name: "Pishiriqlar",
+                  name: "Pishiriqlar".tr(),
                 ),
                 Divider(),
                 departments_item(
@@ -82,18 +83,29 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                       }));
                     },
                     image: "assets/shirinlik.jpg",
-                    name: "Shirinliklar"),
+                    name: "Shirinliklar".tr()),
                 Divider(),
                 departments_item(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return KabobDepartmentsPage(name: "Kaboblar",);
+                      return KabobDepartmentsPage(name: "Kaboblar".tr(),);
                     }));
                   },
                   image: "assets/kabob.jpg",
-                  name: "Kaboblar",
+                  name: "Kaboblar".tr(),
+                ),
+                Divider(),
+                departments_item(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) {
+                      return NonDepartmentsPage(name: 'Patir non'.tr(),);
+                    }));
+                  },
+                  image: "assets/non.jpg",
+                  name: "Nonlar".tr(),
                 ),
               ],
+
             ),
     );
   }

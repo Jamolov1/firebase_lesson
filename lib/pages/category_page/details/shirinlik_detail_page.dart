@@ -103,6 +103,9 @@ class _ShirinlikDetailPageState extends State<ShirinlikDetailPage> {
                 controller: _imgurlcontroller,
                 decoration: InputDecoration(
                   hintText: "Img Url",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -121,6 +124,9 @@ class _ShirinlikDetailPageState extends State<ShirinlikDetailPage> {
                 controller: _namecontroller,
                 decoration: InputDecoration(
                   hintText: "Name",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -139,6 +145,9 @@ class _ShirinlikDetailPageState extends State<ShirinlikDetailPage> {
                 controller: _lastnamecontroller,
                 decoration: InputDecoration(
                   hintText: "Recipe",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -157,6 +166,9 @@ class _ShirinlikDetailPageState extends State<ShirinlikDetailPage> {
                 controller: _aboutcontroller,
                 decoration: InputDecoration(
                   hintText: "Video Url",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),

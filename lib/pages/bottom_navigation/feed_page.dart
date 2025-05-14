@@ -3,14 +3,15 @@ import 'dart:async';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_lesson/pages/bottom_navigation/comment_page.dart';
+import 'package:firebase_lesson/pages/category_page/category/nonlar_page.dart';
 import 'package:firebase_lesson/pages/category_page/see_all_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:remixicon/remixicon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/post_model.dart';
-import '../../service/auth_service.dart';
 import '../../service/rtdb_service.dart';
 import '../../service/url_service.dart';
 import '../../slider_add_page.dart';
@@ -300,18 +301,13 @@ class _FeedPageState extends State<FeedPage> {
         });
   }
 
-
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     loadTheme();
     _apiPostList();
-
   }
-
-
 
   void deleteTaom(String id) {
     RTDBService.deleteTort(id).then((value) => {_apiPostList()});
@@ -321,240 +317,252 @@ class _FeedPageState extends State<FeedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: isDarkMode ? Colors.grey.shade900 : Colors.white,
-        appBar:
-             AppBar(
-                backgroundColor:
-                    isDarkMode ? Colors.grey.shade900 : Colors.white,
-                leading: SizedBox(),
-                title: Text(
-                  "Taomlar Retsepti".tr(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                centerTitle: true,
-                actions: [
-                  // IconButton(
-                  //     onPressed: () {
-                  //       AuthService.signOut(context);
-                  //     },
-                  //     icon: Icon(
-                  //       Icons.logout,
-                  //       color: Colors.red,
-                  //     ))
-                  IconButton(
-                    onPressed: () {
-                      AuthService.signOut(context);
-                    },
-                    icon: Icon(
-                      Icons.logout,
-                    ),
-                  ),
-                ],
+        appBar: AppBar(
+          backgroundColor: isDarkMode ? Colors.grey.shade900 : Colors.white,
+          leading: SizedBox(),
+          title: Text(
+            "Taomlar Retsepti".tr(),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          centerTitle: true,
+          actions: [
+            // IconButton(
+            //     onPressed: () {
+            //       AuthService.signOut(context);
+            //     },
+            //     icon: Icon(
+            //       Icons.logout,
+            //       color: Colors.red,
+            //     ))
+            IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) {
+                  return CommentPage();
+                }));
+              },
+              icon: Icon(
+                Icons.comment,
               ),
-
+            ),
+          ],
+        ),
         body: ListView(
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 12),
+              child: Stack(
+                alignment: Alignment.bottomRight,
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(top: 12),
-                    child: Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-                        CarouselSlider(
-                          items: items.map((item) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (_) {
-                                  return DetailsPage(
-                                      name: item.name ?? "",
-                                      image: item.image_url ?? "",
-                                      recipe: item.recipe ?? "",
-                                      about: item.about ?? "");
-                                }));
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: Image.network(
-                                  item.image_url ?? "",
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                          options: CarouselOptions(
-                            height: MediaQuery.of(context).size.height * 0.22,
-                            autoPlay: true,
-                            enlargeCenterPage: true,
-                            viewportFraction: 0.9,
-                            autoPlayInterval: Duration(seconds: 3),
-                            autoPlayAnimationDuration:
-                                Duration(milliseconds: 800),
-                            scrollDirection: Axis.horizontal,
+                  CarouselSlider(
+                    items: items.map((item) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (_) {
+                            return DetailsPage(
+                                name: item.name ?? "",
+                                image: item.image_url ?? "",
+                                recipe: item.recipe ?? "",
+                                about: item.about ?? "");
+                          }));
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.network(
+                            item.image_url ?? "",
+                            fit: BoxFit.cover,
+                            width: double.infinity,
                           ),
                         ),
-                        IconButton(
-                            padding: EdgeInsets.only(right: 25),
+                      );
+                    }).toList(),
+                    options: CarouselOptions(
+                      height: MediaQuery.of(context).size.height * 0.22,
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                      viewportFraction: 0.9,
+                      autoPlayInterval: Duration(seconds: 3),
+                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      scrollDirection: Axis.horizontal,
+                    ),
+                  ),
+                  kIsWeb
+                      ? IconButton(
+                          padding: EdgeInsets.only(right: 25),
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (_) {
+                              return SliderAddPage();
+                            }));
+                          },
+                          icon: Icon(
+                            Icons.add_circle,
+                            color: Colors.white,
+                            size: 30,
+                          ))
+                      : SizedBox(),
+                ],
+              ),
+            ),
+            DefaultTabController(
+                length: 5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, top: 12, right: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Categories".tr(),
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          TextButton(
                             onPressed: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (_) {
-                                return SliderAddPage();
+                                return SeeAllPage();
                               }));
                             },
-                            icon: Icon(
-                              Icons.add_circle,
-                              color: Colors.white,
-                              size: 30,
-                            ))
-                      ],
-                    ),
-                  ),
-                  DefaultTabController(
-                      length: 4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsets.only(left: 20, top: 12, right: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Categories".tr(),
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: (_){
-                                      return SeeAllPage();
-                                    }));
-                                  },
-                                  child: Text(
-                                    "See All",
-                                    style: TextStyle(
-                                        color: Color(0xFFF1C623),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                )
-                              ],
+                            child: Text(
+                              "See All",
+                              style: TextStyle(
+                                  color: Color(0xFFF1C623),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: ScrollConfiguration(
-                              behavior: ScrollConfiguration.of(context)
-                                  .copyWith(
-                                      scrollbars: false, overscroll: false),
-                              child: Transform.translate(
-                                offset: Offset(-14, 0),
-                                child: TabBar(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 20,
-                                    ),
-                                    indicatorPadding:
-                                        EdgeInsets.symmetric(horizontal: 0),
-                                    indicatorColor: Color(0xFFF1C623),
-                                    indicator: BoxDecoration(
-                                      color: Color(0xFFF1C623),
-                                      borderRadius: BorderRadius.circular(30),
-                                      border: Border.all(
-                                          width: 1.5, color: Color(0xFFF1C623)),
-                                    ),
-                                    indicatorAnimation:
-                                        TabIndicatorAnimation.elastic,
-                                    dividerHeight: 0,
-                                    isScrollable: true,
-                                    labelColor: Colors.white,
-                                    unselectedLabelColor: Color(0xFFF1C623),
-                                    labelPadding: EdgeInsets.only(right: 12),
-                                    labelStyle: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                    tabs: [
-                                      Tab(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Color(0xFFF1C623),
-                                                  width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          child: Center(
-                                            child: Text("Tortlar".tr()),
-                                          ),
-                                        ),
-                                      ),
-                                      Tab(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Color(0xFFF1C623),
-                                                  width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          child: Center(
-                                            child: Text(
-                                              "Pishiriqlar".tr(),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Tab(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Color(0xFFF1C623),
-                                                  width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          child: Center(
-                                            child: Text("Shirinliklar".tr()),
-                                          ),
-                                        ),
-                                      ),
-                                      Tab(
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Color(0xFFF1C623),
-                                                  width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          child: Center(
-                                            child: Text("Kaboblar".tr()),
-                                          ),
-                                        ),
-                                      ),
-                                    ]),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height * 0.55,
-                            child: TabBarView(
-                              children: [
-                                TortPage(),
-                                PishiriqPage(),
-                                ShirinliklarPage(),
-                                KabobPage(),
-                              ],
-                            ),
-                          ),
+                          )
                         ],
-                      ))
-                ],
-              )
-            );
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false, overscroll: false),
+                        child: Transform.translate(
+                          offset: Offset(-14, 0),
+                          child: TabBar(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 20,
+                              ),
+                              indicatorPadding:
+                                  EdgeInsets.symmetric(horizontal: 0),
+                              indicatorColor: Color(0xFFF1C623),
+                              indicator: BoxDecoration(
+                                color: Color(0xFFF1C623),
+                                borderRadius: BorderRadius.circular(30),
+                                border: Border.all(
+                                    width: 1.5, color: Color(0xFFF1C623)),
+                              ),
+                              indicatorAnimation: TabIndicatorAnimation.elastic,
+                              dividerHeight: 0,
+                              isScrollable: true,
+                              labelColor: Colors.white,
+                              unselectedLabelColor: Color(0xFFF1C623),
+                              labelPadding: EdgeInsets.only(right: 12),
+                              labelStyle: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                              tabs: [
+                                Tab(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Color(0xFFF1C623),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: Center(
+                                      child: Text("Tortlar".tr()),
+                                    ),
+                                  ),
+                                ),
+                                Tab(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Color(0xFFF1C623),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: Center(
+                                      child: Text(
+                                        "Pishiriqlar".tr(),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Tab(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Color(0xFFF1C623),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: Center(
+                                      child: Text("Shirinliklar".tr()),
+                                    ),
+                                  ),
+                                ),
+                                Tab(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Color(0xFFF1C623),
+                                            width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: Center(
+                                      child: Text("Kaboblar".tr()),
+                                    ),
+                                  ),
+                                ),
+                                Tab(
+                                  child: Container(
+                                    padding:
+                                    EdgeInsets.symmetric(horizontal: 20),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Color(0xFFF1C623),
+                                            width: 1.5),
+                                        borderRadius:
+                                        BorderRadius.circular(30)),
+                                    child: Center(
+                                      child: Text("Nonlar".tr()),
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.55,
+                      child: TabBarView(
+                        children: [
+                          TortPage(),
+                          PishiriqPage(),
+                          ShirinliklarPage(),
+                          KabobPage(),
+                          NonlarPage()
+                        ],
+                      ),
+                    ),
+                  ],
+                ))
+          ],
+        ));
   }
 }

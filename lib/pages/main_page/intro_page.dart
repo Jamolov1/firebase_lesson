@@ -151,7 +151,7 @@ class _IntroPageState extends State<IntroPage> {
                   ),
                 ),
                 Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typessoting industry.",
+                  "",
                   style: TextStyle(color: Color(0xFF4E4B66), fontSize: 18),
                 ),
               ],

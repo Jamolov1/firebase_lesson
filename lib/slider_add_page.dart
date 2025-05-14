@@ -3,6 +3,7 @@ import 'package:firebase_lesson/model/post_model.dart';
 import 'package:firebase_lesson/pages/main_page/home_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class SliderAddPage extends StatefulWidget {
@@ -14,10 +15,13 @@ class SliderAddPage extends StatefulWidget {
 
 class _SliderAddPageState extends State<SliderAddPage> {
   bool isLoading = false;
+
   final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _lastnamecontroller = TextEditingController();
   final TextEditingController _aboutcontroller = TextEditingController();
   final TextEditingController _imgurlcontroller = TextEditingController();
+
+  final TextEditingController _controller = TextEditingController();
 
   _createPost() {
     String name = _namecontroller.text.trim().toString();
@@ -29,8 +33,6 @@ class _SliderAddPageState extends State<SliderAddPage> {
 
     _apiCreatePost(name, lastname, about,imgUrl);
   }
-
-
 
   _apiCreatePost(String name, String lastname, String about, String imgUrl) {
     setState(() {
@@ -45,6 +47,14 @@ class _SliderAddPageState extends State<SliderAddPage> {
       }),
      Navigator.of(context).pop(),
     });
+  }
+
+
+
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -85,6 +95,9 @@ class _SliderAddPageState extends State<SliderAddPage> {
                 controller: _imgurlcontroller,
                 decoration: InputDecoration(
                   hintText: "Img Url",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -100,6 +113,9 @@ class _SliderAddPageState extends State<SliderAddPage> {
                 controller: _namecontroller,
                 decoration: InputDecoration(
                   hintText: "Name",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -115,6 +131,9 @@ class _SliderAddPageState extends State<SliderAddPage> {
                 controller: _lastnamecontroller,
                 decoration: InputDecoration(
                   hintText: "Recipe",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -130,6 +149,9 @@ class _SliderAddPageState extends State<SliderAddPage> {
                 controller: _aboutcontroller,
                 decoration: InputDecoration(
                   hintText: "Video url",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -160,6 +182,7 @@ class _SliderAddPageState extends State<SliderAddPage> {
               ),
             ),
           ),
+
         ],
       ),
     );

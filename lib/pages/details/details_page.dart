@@ -39,16 +39,22 @@ class _DetailsPageState extends State<DetailsPage> {
                 indicatorColor: Color(0xFFF1C623),
                 indicatorWeight: 3,
                 indicatorSize: TabBarIndicatorSize.tab,
-                labelStyle: TextStyle(fontSize: 20, color:Color(0xFFF1C623),),
+                labelStyle: TextStyle(
+                  fontSize: 20,
+                  color: Color(0xFFF1C623),
+                ),
                 unselectedLabelColor: Colors.grey.shade200,
                 tabs: [Tab(text: "Masalliqlar"), Tab(text: "Tayyorlash")],
               ),
               flexibleSpace: FlexibleSpaceBar(
                 background: Stack(
-
                   children: [
-
-                    Image.network(widget.image, fit: BoxFit.cover,height: double.infinity,width: double.infinity,),
+                    Image.network(
+                      widget.image,
+                      fit: BoxFit.cover,
+                      height: double.infinity,
+                      width: double.infinity,
+                    ),
 
                     Container(
                       decoration: BoxDecoration(
@@ -63,14 +69,29 @@ class _DetailsPageState extends State<DetailsPage> {
                         ),
                       ),
                     ),
+
                     Container(
-                      height: 50,
-                      width: 50,
                       decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(10))
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Colors.white.withOpacity(0.5),
+                            Colors.black.withOpacity(0.2),
+                            Colors.transparent,
+                          ],
+                        ),
                       ),
                     ),
+                    // Container(
+                    //   margin: EdgeInsets.only(top: 20),
+                    //   height: 50,
+                    //   width: 50,
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.grey,
+                    //     borderRadius: BorderRadius.only(bottomRight: Radius.circular(10))
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -87,9 +108,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         Text(
                           "Kerakli Masalliqlar:",
                           style: TextStyle(
-
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           widget.recipe,

@@ -3,6 +3,7 @@ import 'package:firebase_lesson/pages/details/advice_page.dart';
 import 'package:firebase_lesson/service/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../provider/theme.provider.dart';
 
@@ -32,9 +33,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
+                     margin: EdgeInsets.symmetric(vertical: 20),
                     child: Text(
-                      "Akkountdan Chiqmoqchimisiz?",
+                      "Akkountdan Chiqmoqchimisiz?".tr(),
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -50,7 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       height: 35,
                       child: Center(
                         child: Text(
-                          "Ha",
+                          "Ha".tr(),
                           style: TextStyle(
                             color: Colors.red,
                             fontSize: 20,
@@ -69,7 +71,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       height: 35,
                       child: Center(
                         child: Text(
-                          "Yo'q",
+                          "Yo'q".tr(),
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -254,6 +256,7 @@ class _SettingsPageState extends State<SettingsPage> {
     });
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -276,8 +279,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   child:
                       Image.asset("assets/splash.png", height: 130, width: 130),
                 ),
-                const Text(
-                  "Taomlar Retsepti",
+                 Text(
+                  "Taomlar Retsepti".tr(),
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
                 const Text("version 5.0"),
@@ -301,8 +304,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: const Icon(Icons.star_border, color: Colors.orange),
                   ),
-                  title: const Text(
-                    "Foydali maslahatlar",
+                  title: Text(
+                    "Foydali maslahatlar".tr(),
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -324,8 +327,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: const Icon(Icons.language, color: Colors.orange),
                   ),
-                  title: const Text(
-                    "Tilni tanlash",
+                  title:Text(
+                    "Tilni tanlash".tr(),
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -344,8 +347,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: const Icon(Icons.dark_mode, color: Colors.orange),
                   ),
-                  title: const Text(
-                    "Qorong'u rejim",
+                  title:  Text(
+                    "Qorong'u rejim".tr(),
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   trailing: Switch(
@@ -374,11 +377,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                     child: const Icon(Icons.logout, color: Colors.orange),
                   ),
-                  title: const Text(
-                    "Tizimdan chiqish",
+                  title: Text(
+                    "Tizimdan chiqish".tr(),
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
+
               ],
             ),
     );

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_lesson/model/about.dart';
 import 'package:firebase_lesson/model/tips_model.dart';
 import 'package:firebase_lesson/pages/details/advice_details_page.dart';
@@ -43,7 +44,7 @@ class _AdvicePageState extends State<AdvicePage> {
       appBar: AppBar(
         backgroundColor: isDarkMode ? Colors.grey.shade900 : Colors.white,
         title: Text(
-          "Foydali Maslahatlar",
+          "Foydali maslahatlar".tr(),
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
@@ -53,22 +54,22 @@ class _AdvicePageState extends State<AdvicePage> {
               children: [
                 items(
                     image: "assets/img_1.jpg",
-                    name: "Oshxona maslahatlari",
+                    name: "Oshxona maslahatlari".tr(),
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
                         return AdviceDetailsPage(
-                          name: 'Oshxona maslahatlari',
+                          name: 'Oshxona maslahatlari'.tr(),
                           tipsAbouts: tips[aboutCount].about1,
                         );
                       }));
                     }),
                 items(
                   image: "assets/img_2.jpg",
-                  name: "Ro'zg'orda asqotadigan tavsiyalar",
+                  name: "Ro'zg'orda asqotadigan tavsiyalar".tr(),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (_) {
                       return AdviceDetailsPage(
-                        name: "Ro'zg'orda asqotadigan tavsiyalar",
+                        name: "Ro'zg'orda asqotadigan tavsiyalar".tr(),
                         tipsAbouts: tips[aboutCount].about2,
                       );
                     }));
@@ -76,11 +77,11 @@ class _AdvicePageState extends State<AdvicePage> {
                 ),
                 items(
                   image: "assets/img_3.jpeg",
-                  name: "Oshxona sirlari",
+                  name: "Oshxona sirlari".tr(),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (_) {
                       return AdviceDetailsPage(
-                        name: "Oshxona sirlari",
+                        name: "Oshxona sirlari".tr(),
                         tipsAbouts: tips[aboutCount].about3,
                       );
                     }));
@@ -121,10 +122,11 @@ class _AdvicePageState extends State<AdvicePage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  height: 60,
+                  padding: EdgeInsets.all(12),
                   child: Center(
                     child: Text(
                       name,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_lesson/model/post_model.dart';
 import 'package:firebase_lesson/pages/category_page/details/tort_detail_page.dart';
 import 'package:firebase_lesson/pages/details/details_page.dart';
@@ -6,6 +5,8 @@ import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../service/auth_service.dart';
 
 class TortPage extends StatefulWidget {
   const TortPage({
@@ -48,6 +49,8 @@ class _TortPageState extends State<TortPage> {
   void deleteTaom(String id) {
     RTDBService.deleteTort(id).then((value) => {_apiPostList()});
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +121,7 @@ class _TortPageState extends State<TortPage> {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  "${items[index].recipe!} so'm",
+                                                  "${items[index].recipe!}",
                                                   style: TextStyle(
                                                     fontSize: 20,
                                                   ),

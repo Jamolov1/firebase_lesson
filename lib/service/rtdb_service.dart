@@ -44,6 +44,14 @@ class RTDBService {
     return _database.onChildAdded;
   }
 
+  static Future<Stream<DatabaseEvent>> addNon(Post post) async {
+    final referense = _database.child("nonlar").push();
+    post.id=referense.key;
+    await referense.set(post.toJson());
+    return _database.onChildAdded;
+  }
+
+
   static Future<List<Post>> getSlider() async {
     List<Post> items = [];
     Query query = _database.ref.child("slider");
@@ -159,6 +167,29 @@ class RTDBService {
     return items;
   }
 
+  static Future<List<Post>> getNon() async {
+    List<Post> items = [];
+    Query query = _database.ref.child("nonlar");
+    DatabaseEvent event = await query.once();
+
+    var snapshot = event.snapshot;
+
+    for (var child in snapshot.children) {
+      var jsonPost = jsonEncode(child.value);
+      Map<String, dynamic> map = jsonDecode(jsonPost);
+      var post = Post(
+          id: child.key,
+          name: map['name'],
+          recipe: map["recipe"],
+          image_url: map["image_url"],
+          about: map["about"]);
+
+      items.add(post);
+    }
+
+    return items;
+  }
+
   static Future<void> deleteTort(String id) async {
     await _database
         .child("tortlar")
@@ -186,6 +217,14 @@ class RTDBService {
   static Future<void> deleteKabob(String id) async {
     await _database
         .child("kaboblar")
+        .child(id)
+        .remove()
+        .then((value) => {print("item uchirildi")});
+  }
+
+  static Future<void> deleteNon(String id) async {
+    await _database
+        .child("nonlar")
         .child(id)
         .remove()
         .then((value) => {print("item uchirildi")});

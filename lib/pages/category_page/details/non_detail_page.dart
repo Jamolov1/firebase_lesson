@@ -1,17 +1,21 @@
+
 import 'package:firebase_lesson/model/post_model.dart';
-import 'package:firebase_lesson/pages/category_page/category/kaboblar_page.dart';
 import 'package:firebase_lesson/pages/main_page/home_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class KabobDetailPage extends StatefulWidget {
-  const KabobDetailPage({super.key});
+import '../../../provider/theme.provider.dart';
+
+
+class NonDetailPage extends StatefulWidget {
+  const NonDetailPage({super.key});
 
   @override
-  State<KabobDetailPage> createState() => _KabobDetailPageState();
+  State<NonDetailPage> createState() => _NonDetailPageState();
 }
 
-class _KabobDetailPageState extends State<KabobDetailPage> {
+class _NonDetailPageState extends State<NonDetailPage> {
   bool isLoading = false;
   final TextEditingController _namecontroller = TextEditingController();
   final TextEditingController _lastnamecontroller = TextEditingController();
@@ -38,31 +42,33 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
     String about = _aboutcontroller.text.trim().toString();
     String imgUrl = _imgurlcontroller.text.trim().toString();
 
-    if (name.isEmpty || lastname.isEmpty || about.isEmpty || imgUrl.isEmpty)
-      return;
+    if (name.isEmpty || lastname.isEmpty || about.isEmpty || imgUrl.isEmpty) return;
 
-    _apiCreatePost(name, lastname, about, imgUrl);
+    _apiCreatePost(name, lastname, about,imgUrl);
   }
+
+
 
   _apiCreatePost(String name, String lastname, String about, String imgUrl) {
     setState(() {
       isLoading = true;
     });
-    Post post =
-        Post(name: name, recipe: lastname, about: about, image_url: imgUrl);
+    Post post = Post(
+        name: name, recipe: lastname, about: about, image_url: imgUrl);
 
-    RTDBService.addKabob(post).then((value) => {
-          setState(() {
-            isLoading = false;
-          }),
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
-            return HomePage();
-          })),
-        });
+    RTDBService.addNon(post).then((value) => {
+      setState(() {
+        isLoading = false;
+      }),
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
+        return HomePage();
+      })),
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -75,7 +81,7 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
               color: Colors.white,
             )),
         title: Text(
-          "Kabob Add Page",
+          "Non Add Page",
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -94,8 +100,8 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
             margin: EdgeInsets.all(12),
             height: 55,
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(10),
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
             ),
             child: Center(
               child: TextField(
@@ -115,8 +121,8 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
             margin: EdgeInsets.all(12),
             height: 55,
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(10),
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
             ),
             child: Center(
               child: TextField(
@@ -136,8 +142,8 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
             margin: EdgeInsets.all(12),
             height: 55,
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(10),
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
             ),
             child: Center(
               child: TextField(
@@ -157,14 +163,14 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
             margin: EdgeInsets.all(12),
             height: 55,
             decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(10),
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(10)
             ),
             child: Center(
               child: TextField(
                 controller: _aboutcontroller,
                 decoration: InputDecoration(
-                  hintText: "Video Url",
+                  hintText: "Video url",
                   hintStyle: TextStyle(
                       color: Colors.grey.shade700
                   ),
@@ -175,29 +181,29 @@ class _KabobDetailPageState extends State<KabobDetailPage> {
           ),
           isLoading
               ? SizedBox(
-                  height: 60,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
+            height: 60,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
               : InkWell(
-                  onTap: () {
-                    _createPost();
-                  },
-                  child: Container(
-                    margin: EdgeInsets.all(12),
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.orange,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                      child: Text(
-                        "Save",
-                        style: TextStyle(color: Colors.white, fontSize: 22),
-                      ),
-                    ),
-                  ),
+            onTap: () {
+              _createPost();
+            },
+            child: Container(
+              margin: EdgeInsets.all(12),
+              height: 60,
+              decoration: BoxDecoration(
+                  color: Colors.orange,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                child: Text(
+                  "Save",
+                  style: TextStyle(color: Colors.white, fontSize: 22),
                 ),
+              ),
+            ),
+          ),
         ],
       ),
     );

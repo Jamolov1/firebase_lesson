@@ -3,7 +3,9 @@ import 'package:firebase_lesson/model/post_model.dart';
 import 'package:firebase_lesson/pages/main_page/home_page.dart';
 import 'package:firebase_lesson/service/rtdb_service.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../provider/theme.provider.dart';
 import '../category/tort_page.dart';
 
 
@@ -67,6 +69,7 @@ class _TortDetailPageState extends State<TortDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Provider.of<ThemeProvider>(context).isDarkMode;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent,
@@ -106,6 +109,9 @@ class _TortDetailPageState extends State<TortDetailPage> {
                 controller: _imgurlcontroller,
                 decoration: InputDecoration(
                   hintText: "Img Url",
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -124,6 +130,9 @@ class _TortDetailPageState extends State<TortDetailPage> {
                 controller: _namecontroller,
                 decoration: InputDecoration(
                   hintText: "Name",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -142,6 +151,9 @@ class _TortDetailPageState extends State<TortDetailPage> {
                 controller: _lastnamecontroller,
                 decoration: InputDecoration(
                   hintText: "Recipe",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -160,6 +172,9 @@ class _TortDetailPageState extends State<TortDetailPage> {
                 controller: _aboutcontroller,
                 decoration: InputDecoration(
                   hintText: "Video url",
+                  hintStyle: TextStyle(
+                      color: Colors.grey.shade700
+                  ),
                   border: InputBorder.none,
                 ),
               ),
